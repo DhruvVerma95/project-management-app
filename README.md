@@ -35,9 +35,9 @@ Welcome to the **<span style="color:blue;">Project Management App</span>**! This
 ## 🌟 Getting Started
 
 
-1 **Create a Project**: Add a new project with a title, due date, and description.
-2. **Select a Project**: Choose a project to view its details.
-3. **Add Tasks**: Add tasks to your selected project.
+1 **Create a Project**: Add a new project with a title, due date, and description.<br>
+2. **Select a Project**: Choose a project to view its details.<br>
+3. **Add Tasks**: Add tasks to your selected project.<br>
 
 
 
