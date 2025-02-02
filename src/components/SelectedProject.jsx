@@ -10,6 +10,10 @@ export default function SelectedProject({ project, onDelete, onAddTask, onDelete
         day: 'numeric'
     })
 
+    const handleDelete = () => {
+        onDelete();
+    }
+
     return (
         <>
             {showConfirmation && (
@@ -28,7 +32,7 @@ export default function SelectedProject({ project, onDelete, onAddTask, onDelete
                                 className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                                 onClick={() => {
                                     setShowConfirmation(false);
-                                    onDelete();
+                                    handleDelete();
                                 }}
                             >
                                 Delete
