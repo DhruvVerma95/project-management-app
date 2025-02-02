@@ -1,15 +1,20 @@
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import ProjectsSidebar from "./components/ProjectsSidebar";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SelectedProject from "./components/SelectedProject";
 
 function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
-    project: [],
-    tasks: []
+    projects: JSON.parse(localStorage.getItem('projects')) || [],
+    tasks: JSON.parse(localStorage.getItem('tasks')) || []
   });
+
+  useEffect(() => {
+    localStorage.setItem('projects', JSON.stringify(projectsState.projects));
+    localStorage.setItem('tasks', JSON.stringify(projectsState.tasks));
+  }, [projectsState.projects, projectsState.tasks]);
 
   function handleAddTask(text) {
     setProjectsState(prevState => {
@@ -70,7 +75,7 @@ function App() {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        project: prevState.project.filter((project) => project.id !== prevState.selectedProjectId),
+        projects: prevState.projects.filter((project) => project.id !== prevState.selectedProjectId),
       };
     });
   }
@@ -84,13 +89,13 @@ function App() {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        project: [...prevState.project, newProject]
+        projects: [...prevState.projects, newProject]
       }
     });
   }
 
 
-  const selectedProject = projectsState.project.find(
+  const selectedProject = projectsState.projects.find(
     (project) => project.id === projectsState.selectedProjectId);
   let content = <SelectedProject tasks={projectsState.tasks} onAddTask={handleAddTask} onDeleteTask={handleDeleteTask} project={selectedProject} onDelete={handleDeleteProject} />;
 
@@ -102,7 +107,7 @@ function App() {
   return (
     <main className="h-screen my-4 mx-4 flex gap-8 bg-stone-200  rounded-xl">
 
-      <ProjectsSidebar onStartAddProject={handleStartAddProject} projects={projectsState.project} onSelectProject={handleSelectProject} selectedProjectId={projectsState.selectedProjectId} />
+      <ProjectsSidebar onStartAddProject={handleStartAddProject} projects={projectsState.projects} onSelectProject={handleSelectProject} selectedProjectId={projectsState.selectedProjectId} />
       {content}
     </main>
   );
